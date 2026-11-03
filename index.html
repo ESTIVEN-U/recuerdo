@@ -1,0 +1,1172 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#101b2d">
+  <meta name="description" content="Portal de repaso de 3.º Bachillerato Técnico Vocacional en Desarrollo de Software A, INDEL.">
+  <title>HUB 3DS·A — Portal de repaso</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --fondo: #f5f7fb;
+      --superficie: #ffffff;
+      --superficie-suave: #edf2f8;
+      --texto: #17243a;
+      --texto-suave: #52627a;
+      --borde: #d7e0eb;
+      --acento: #087f8c;
+      --acento-oscuro: #05616c;
+      --acento-claro: #d9f3f2;
+      --destello: #ffca68;
+      --sombra: 0 18px 48px rgb(26 43 70 / 10%);
+      --radio: 1.15rem;
+      --ancho: 1160px;
+    }
+
+    :root[data-tema="oscuro"] {
+      color-scheme: dark;
+      --fondo: #101827;
+      --superficie: #182438;
+      --superficie-suave: #202f45;
+      --texto: #f0f5fb;
+      --texto-suave: #bdc9d9;
+      --borde: #34445b;
+      --acento: #56d2d1;
+      --acento-oscuro: #9ce8e4;
+      --acento-claro: #203d49;
+      --destello: #ffd178;
+      --sombra: 0 18px 48px rgb(0 0 0 / 28%);
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-tema]) {
+        color-scheme: dark;
+        --fondo: #101827;
+        --superficie: #182438;
+        --superficie-suave: #202f45;
+        --texto: #f0f5fb;
+        --texto-suave: #bdc9d9;
+        --borde: #34445b;
+        --acento: #56d2d1;
+        --acento-oscuro: #9ce8e4;
+        --acento-claro: #203d49;
+        --destello: #ffd178;
+        --sombra: 0 18px 48px rgb(0 0 0 / 28%);
+      }
+    }
+
+    * { box-sizing: border-box; }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 6rem;
+    }
+
+    body {
+      min-width: 320px;
+      margin: 0;
+      background: var(--fondo);
+      color: var(--texto);
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.6;
+      transition: background-color 180ms ease, color 180ms ease;
+    }
+
+    a { color: var(--acento-oscuro); }
+
+    button, input, select { font: inherit; }
+
+    button, a, input, select, dialog { -webkit-tap-highlight-color: transparent; }
+
+    :focus-visible {
+      outline: 3px solid var(--destello);
+      outline-offset: 4px;
+    }
+
+    .salto {
+      position: absolute;
+      z-index: 20;
+      top: .6rem;
+      left: .6rem;
+      padding: .65rem 1rem;
+      transform: translateY(-160%);
+      border-radius: .6rem;
+      background: var(--superficie);
+      color: var(--texto);
+    }
+
+    .salto:focus { transform: translateY(0); }
+
+    .contenedor {
+      width: min(var(--ancho), calc(100% - 2rem));
+      margin-inline: auto;
+    }
+
+    .barra {
+      position: sticky;
+      z-index: 5;
+      top: 0;
+      border-bottom: 1px solid var(--borde);
+      background: color-mix(in srgb, var(--superficie) 92%, transparent);
+      backdrop-filter: blur(14px);
+    }
+
+    .barra-interior {
+      display: flex;
+      min-height: 4.4rem;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .marca {
+      display: inline-flex;
+      align-items: center;
+      gap: .65rem;
+      color: var(--texto);
+      font-size: 1.05rem;
+      font-weight: 850;
+      letter-spacing: -.04em;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    .marca-icono {
+      display: grid;
+      width: 2rem;
+      aspect-ratio: 1;
+      place-items: center;
+      border-radius: .65rem;
+      background: var(--acento);
+      color: #fff;
+      font-size: .78rem;
+      letter-spacing: -.06em;
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      gap: clamp(.55rem, 2vw, 1.3rem);
+    }
+
+    .nav a {
+      color: var(--texto-suave);
+      font-size: .9rem;
+      font-weight: 650;
+      text-decoration: none;
+    }
+
+    .nav a:hover { color: var(--acento-oscuro); }
+
+    .boton-tema, .boton {
+      display: inline-flex;
+      min-height: 2.8rem;
+      align-items: center;
+      justify-content: center;
+      gap: .5rem;
+      border: 1px solid transparent;
+      border-radius: .8rem;
+      cursor: pointer;
+      font-weight: 750;
+      text-decoration: none;
+      transition: transform 160ms ease, background-color 160ms ease, border-color 160ms ease;
+    }
+
+    .boton:hover, .boton-tema:hover { transform: translateY(-2px); }
+
+    .boton-tema {
+      flex: 0 0 auto;
+      width: 2.8rem;
+      padding: 0;
+      border-color: var(--borde);
+      background: var(--superficie);
+      color: var(--texto);
+      font-size: 1.1rem;
+    }
+
+    .boton {
+      padding: .7rem 1rem;
+      background: var(--acento);
+      color: #fff;
+    }
+
+    .boton:hover { background: var(--acento-oscuro); }
+
+    .boton-secundario {
+      border-color: var(--borde);
+      background: var(--superficie);
+      color: var(--texto);
+    }
+
+    .boton-secundario:hover { background: var(--superficie-suave); }
+
+    .portada {
+      position: relative;
+      overflow: hidden;
+      padding: clamp(3.5rem, 9vw, 7rem) 0 4rem;
+      background:
+        radial-gradient(ellipse at 86% 16%, color-mix(in srgb, var(--acento) 25%, transparent), transparent 34%),
+        linear-gradient(135deg, var(--superficie), var(--fondo) 72%);
+      border-bottom: 1px solid var(--borde);
+    }
+
+    .portada::after {
+      position: absolute;
+      right: -3rem;
+      bottom: -7rem;
+      width: 19rem;
+      height: 19rem;
+      border: 1px solid color-mix(in srgb, var(--acento) 35%, transparent);
+      border-radius: 50%;
+      box-shadow: 0 0 0 2rem color-mix(in srgb, var(--acento) 5%, transparent),
+        0 0 0 4rem color-mix(in srgb, var(--acento) 4%, transparent);
+      content: "";
+      pointer-events: none;
+    }
+
+    .portada-contenido {
+      position: relative;
+      z-index: 1;
+      max-width: 760px;
+      animation: aparecer 650ms ease both;
+    }
+
+    .etiqueta {
+      display: inline-flex;
+      align-items: center;
+      gap: .45rem;
+      padding: .35rem .7rem;
+      border: 1px solid var(--borde);
+      border-radius: 999px;
+      background: var(--superficie);
+      color: var(--acento-oscuro);
+      font-size: .78rem;
+      font-weight: 800;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+    }
+
+    .portada h1 {
+      margin: 1.1rem 0 .85rem;
+      font-size: clamp(2.7rem, 9vw, 5.8rem);
+      font-weight: 900;
+      letter-spacing: -.075em;
+      line-height: .98;
+    }
+
+    .portada h1 span { color: var(--acento); }
+
+    .portada p {
+      max-width: 620px;
+      margin: 0;
+      color: var(--texto-suave);
+      font-size: clamp(1.05rem, 2.5vw, 1.25rem);
+    }
+
+    .portada-acciones {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .75rem;
+      margin-top: 1.7rem;
+    }
+
+    .datos-institucion {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .55rem 1rem;
+      margin-top: 2.1rem;
+      color: var(--texto-suave);
+      font-size: .9rem;
+    }
+
+    .datos-institucion span::before {
+      margin-right: .4rem;
+      color: var(--acento);
+      content: "◆";
+      font-size: .65rem;
+    }
+
+    main { padding-bottom: 4rem; }
+
+    .seccion { padding-top: 3.5rem; }
+
+    .encabezado-seccion {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: end;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-bottom: 1.3rem;
+    }
+
+    .encabezado-seccion h2 {
+      margin: 0;
+      font-size: clamp(1.65rem, 4vw, 2.25rem);
+      letter-spacing: -.05em;
+      line-height: 1.15;
+    }
+
+    .encabezado-seccion p {
+      margin: .45rem 0 0;
+      color: var(--texto-suave);
+    }
+
+    .progreso-panel {
+      padding: 1.2rem;
+      border: 1px solid var(--borde);
+      border-radius: var(--radio);
+      background: var(--superficie);
+      box-shadow: var(--sombra);
+    }
+
+    .progreso-arriba {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: .5rem 1rem;
+    }
+
+    .progreso-arriba strong { font-size: 1rem; }
+
+    .progreso-valor {
+      color: var(--acento-oscuro);
+      font-size: 1.2rem;
+      font-weight: 900;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .pista-progreso {
+      height: .7rem;
+      overflow: hidden;
+      margin-top: .8rem;
+      border-radius: 999px;
+      background: var(--superficie-suave);
+    }
+
+    .barra-progreso {
+      width: 0;
+      height: 100%;
+      border-radius: inherit;
+      background: linear-gradient(90deg, var(--acento), #83d6bd);
+      transition: width 350ms ease;
+    }
+
+    .mensaje-progreso {
+      min-height: 1.5rem;
+      margin: .6rem 0 0;
+      color: var(--texto-suave);
+      font-size: .9rem;
+    }
+
+    .controles {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: .85rem;
+      margin: 1.5rem 0 1rem;
+    }
+
+    .campo { display: grid; gap: .35rem; }
+
+    .campo label {
+      font-size: .88rem;
+      font-weight: 750;
+    }
+
+    .campo input, .campo select {
+      width: 100%;
+      min-height: 3rem;
+      padding: .65rem .8rem;
+      border: 1px solid var(--borde);
+      border-radius: .75rem;
+      background: var(--superficie);
+      color: var(--texto);
+    }
+
+    .campo input::placeholder { color: var(--texto-suave); opacity: .8; }
+
+    .contador {
+      margin: .2rem 0 1rem;
+      color: var(--texto-suave);
+      font-size: .9rem;
+    }
+
+    .rejilla {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+
+    .tarjeta {
+      display: flex;
+      min-height: 100%;
+      flex-direction: column;
+      padding: 1.15rem;
+      border: 1px solid var(--borde);
+      border-radius: var(--radio);
+      background: var(--superficie);
+      box-shadow: 0 8px 22px rgb(26 43 70 / 5%);
+      transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
+      animation: aparecer 420ms ease both;
+    }
+
+    .tarjeta:hover {
+      transform: translateY(-4px);
+      border-color: color-mix(in srgb, var(--acento) 55%, var(--borde));
+      box-shadow: var(--sombra);
+    }
+
+    .tarjeta-cabecera {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: .75rem;
+    }
+
+    .numero {
+      display: grid;
+      width: 2.4rem;
+      flex: 0 0 2.4rem;
+      aspect-ratio: 1;
+      place-items: center;
+      border-radius: .75rem;
+      background: var(--acento-claro);
+      color: var(--acento-oscuro);
+      font-size: .83rem;
+      font-weight: 900;
+    }
+
+    .estado-repasado {
+      padding: .25rem .55rem;
+      border-radius: 999px;
+      background: var(--acento-claro);
+      color: var(--acento-oscuro);
+      font-size: .72rem;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .tarjeta h3 {
+      margin: 1rem 0 .45rem;
+      font-size: 1.12rem;
+      letter-spacing: -.025em;
+      line-height: 1.35;
+    }
+
+    .docente {
+      margin: 0 0 .6rem;
+      color: var(--acento-oscuro);
+      font-size: .85rem;
+      font-weight: 750;
+    }
+
+    .resumen-corto {
+      margin: 0 0 1.1rem;
+      color: var(--texto-suave);
+      font-size: .93rem;
+    }
+
+    .tarjeta .boton { width: 100%; margin-top: auto; }
+
+    .sin-resultados {
+      grid-column: 1 / -1;
+      padding: 2rem 1rem;
+      border: 1px dashed var(--borde);
+      border-radius: var(--radio);
+      color: var(--texto-suave);
+      text-align: center;
+    }
+
+    .nota {
+      margin-top: 2rem;
+      padding: 1rem 1.1rem;
+      border-left: 4px solid var(--destello);
+      border-radius: 0 .75rem .75rem 0;
+      background: var(--superficie);
+      color: var(--texto-suave);
+      font-size: .9rem;
+    }
+
+    footer {
+      padding: 1.5rem 0 2.5rem;
+      border-top: 1px solid var(--borde);
+      color: var(--texto-suave);
+      font-size: .88rem;
+      text-align: center;
+    }
+
+    dialog {
+      width: min(720px, calc(100% - 1.25rem));
+      max-height: min(88vh, 850px);
+      padding: 0;
+      overflow: auto;
+      border: 1px solid var(--borde);
+      border-radius: 1.2rem;
+      background: var(--superficie);
+      color: var(--texto);
+      box-shadow: 0 24px 90px rgb(0 0 0 / 35%);
+    }
+
+    dialog::backdrop {
+      background: rgb(7 15 28 / 68%);
+      backdrop-filter: blur(3px);
+    }
+
+    .ficha-cabecera {
+      position: sticky;
+      z-index: 1;
+      top: 0;
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: 1.2rem 1.2rem 1rem;
+      border-bottom: 1px solid var(--borde);
+      background: var(--superficie);
+    }
+
+    .ficha-cabecera h2 {
+      margin: .45rem 0 0;
+      font-size: clamp(1.35rem, 5vw, 1.8rem);
+      letter-spacing: -.04em;
+      line-height: 1.2;
+    }
+
+    .cerrar {
+      display: grid;
+      width: 2.6rem;
+      height: 2.6rem;
+      flex: 0 0 auto;
+      place-items: center;
+      border: 1px solid var(--borde);
+      border-radius: .7rem;
+      background: var(--superficie);
+      color: var(--texto);
+      cursor: pointer;
+      font-size: 1.25rem;
+    }
+
+    .ficha-contenido { padding: .3rem 1.2rem 1.2rem; }
+
+    .ficha-contenido h3 {
+      margin: 1.25rem 0 .4rem;
+      font-size: 1rem;
+    }
+
+    .ficha-contenido h4 {
+      margin: 1rem 0 .35rem;
+      color: var(--acento-oscuro);
+      font-size: .95rem;
+    }
+
+    .ficha-contenido p { margin: .35rem 0; color: var(--texto-suave); }
+
+    .ficha-contenido ul {
+      margin: .35rem 0;
+      padding-left: 1.25rem;
+      color: var(--texto-suave);
+    }
+
+    .ficha-contenido li + li { margin-top: .2rem; }
+    .ficha-contenido a { overflow-wrap: anywhere; }
+
+    .ficha-acciones {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .7rem;
+      margin-top: 1.4rem;
+      padding-top: 1rem;
+      border-top: 1px solid var(--borde);
+    }
+
+    .ficha-acciones .boton { flex: 1 1 180px; }
+
+    .solo-lectores {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      clip-path: inset(50%);
+      border: 0;
+    }
+
+    @keyframes aparecer {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (min-width: 620px) {
+      .controles { grid-template-columns: minmax(0, 1fr) 230px; }
+      .rejilla { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .progreso-panel { padding: 1.35rem 1.5rem; }
+    }
+
+    @media (min-width: 900px) {
+      .rejilla { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    }
+
+    @media (max-width: 580px) {
+      .barra-interior { min-height: 3.9rem; }
+      .nav { gap: .7rem; }
+      .nav a { font-size: .8rem; }
+      .nav a[href="#progreso"] { display: none; }
+      .marca { font-size: .95rem; }
+      .boton-tema { width: 2.55rem; min-height: 2.55rem; }
+      .portada { padding-top: 3.5rem; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        scroll-behavior: auto !important;
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .01ms !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <a class="salto" href="#contenido">Saltar al contenido</a>
+
+  <header class="barra">
+    <div class="contenedor barra-interior">
+      <a class="marca" href="#inicio" aria-label="HUB 3DS·A, ir al inicio">
+        <span class="marca-icono" aria-hidden="true">3A</span>
+        <span>HUB 3DS·A</span>
+      </a>
+      <nav class="nav" aria-label="Navegación principal">
+        <a href="#inicio">Inicio</a>
+        <a href="#modulos">Módulos</a>
+        <a href="#progreso">Progreso</a>
+        <button class="boton-tema" id="boton-tema" type="button" aria-label="Cambiar a modo oscuro" title="Cambiar tema">
+          <span id="icono-tema" aria-hidden="true">☾</span>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <section class="portada" id="inicio" aria-labelledby="titulo-principal">
+    <div class="contenedor portada-contenido">
+      <span class="etiqueta">Tu espacio de repaso · 3.º BTV</span>
+      <h1 id="titulo-principal">HUB <span>3DS·A</span></h1>
+      <p>Un punto de encuentro para ordenar lo aprendido, revisar evidencias y preparar el siguiente paso de tu camino en desarrollo de software.</p>
+      <div class="portada-acciones">
+        <a class="boton" href="#modulos">Explorar los módulos <span aria-hidden="true">↘</span></a>
+        <a class="boton boton-secundario" href="#progreso">Ver mi progreso</a>
+      </div>
+      <div class="datos-institucion" aria-label="Datos del centro educativo">
+        <span>INDEL</span>
+        <span>Cantón Lourdes</span>
+        <span>Desarrollo de Software «A»</span>
+      </div>
+    </div>
+  </section>
+
+  <main class="contenedor" id="contenido">
+    <section class="seccion" id="progreso" aria-labelledby="titulo-progreso">
+      <div class="encabezado-seccion">
+        <div>
+          <h2 id="titulo-progreso">Tu avance, a tu ritmo</h2>
+          <p>Marca cada ficha cuando hayas terminado de repasarla.</p>
+        </div>
+      </div>
+      <div class="progreso-panel">
+        <div class="progreso-arriba">
+          <strong id="resumen-progreso">0 de 7 módulos repasados</strong>
+          <span class="progreso-valor" id="porcentaje-progreso">0 %</span>
+        </div>
+        <div class="pista-progreso" id="pista-progreso" role="progressbar" aria-label="Progreso global del repaso" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+          <div class="barra-progreso" id="barra-progreso"></div>
+        </div>
+        <p class="mensaje-progreso" id="mensaje-progreso" aria-live="polite">Cada ficha repasada cuenta. ¡Empecemos!</p>
+      </div>
+    </section>
+
+    <section class="seccion" id="modulos" aria-labelledby="titulo-modulos">
+      <div class="encabezado-seccion">
+        <div>
+          <h2 id="titulo-modulos">Módulos para explorar</h2>
+          <p>Busca un tema o filtra por docente para encontrar tu siguiente repaso.</p>
+        </div>
+      </div>
+      <div class="controles">
+        <div class="campo">
+          <label for="buscador">Buscar por módulo, resumen, programas o herramientas</label>
+          <input id="buscador" type="search" placeholder="Ej.: bases de datos" autocomplete="off">
+        </div>
+        <div class="campo">
+          <label for="filtro-docente">Filtrar por docente</label>
+          <select id="filtro-docente">
+            <option value="">Todos los docentes</option>
+          </select>
+        </div>
+      </div>
+      <p class="contador" id="contador" aria-live="polite">Mostrando 7 de 7 módulos</p>
+      <div class="rejilla" id="lista-modulos" aria-label="Lista de módulos"></div>
+      <p class="nota">Los contenidos señalados como <strong>POR COMPLETAR</strong> son espacios pendientes para tus apuntes y evidencias reales. El módulo marcado como ejemplo solo ilustra cómo llenar la ficha; sustituye sus muestras antes de compartir el portal.</p>
+    </section>
+  </main>
+
+  <footer>
+    <div class="contenedor">HUB 3DS·A · Portal de repaso de 3.º Bachillerato Técnico Vocacional en Desarrollo de Software «A» · INDEL</div>
+  </footer>
+
+  <dialog id="dialogo-ficha" aria-labelledby="ficha-titulo">
+    <div id="contenido-ficha"></div>
+  </dialog>
+
+  <script>
+    // Datos editables del portal. Este bloque se puede mover después a data/modulos.js.
+    // Los valores del primer módulo son ejemplos de formato, no datos reales del curso.
+    const MODULOS = [
+      {
+        id: "mantenimiento-sistema",
+        nombre: "Mantenimiento y aseguramiento de la operación del sistema informático",
+        docente: "POR COMPLETAR",
+        resumen: "EJEMPLO: escribe aquí un resumen breve del módulo con tus propias palabras.",
+        aprendido: [
+          "EJEMPLO: primera cosa aprendida (reemplazar)",
+          "EJEMPLO: segunda cosa aprendida (reemplazar)",
+          "EJEMPLO: tercera cosa aprendida (reemplazar)"
+        ],
+        instrumentos: [
+          "EJEMPLO: guía de trabajo (reemplazar)",
+          "EJEMPLO: rúbrica (reemplazar)",
+          "EJEMPLO: lista de cotejo (reemplazar)",
+          "EJEMPLO: examen (reemplazar)"
+        ],
+        programas: ["EJEMPLO: nombre del programa (reemplazar)"],
+        herramientas: ["EJEMPLO: lenguaje, librería o servicio (reemplazar)"],
+        recursos: [{ nombre: "EJEMPLO: nombre del recurso", enlace: "" }],
+        evidencias: [{ nombre: "EJEMPLO: nombre de la evidencia", enlace: "" }],
+        esEjemplo: true
+      },
+      {
+        id: "componentes-dispositivos-moviles",
+        nombre: "Módulo 2: Desarrollo de componentes para dispositivos móviles",
+        docente: "POR COMPLETAR",
+        resumen: "POR COMPLETAR",
+        aprendido: ["POR COMPLETAR", "POR COMPLETAR", "POR COMPLETAR"],
+        instrumentos: ["Guía: POR COMPLETAR", "Rúbrica: POR COMPLETAR", "Lista de cotejo: POR COMPLETAR", "Examen: POR COMPLETAR"],
+        programas: ["POR COMPLETAR"],
+        herramientas: ["POR COMPLETAR"],
+        recursos: [{ nombre: "POR COMPLETAR", enlace: "" }],
+        evidencias: [{ nombre: "POR COMPLETAR", enlace: "" }]
+      },
+      {
+        id: "aplicaciones-software",
+        nombre: "Módulo 1: Desarrollo de aplicaciones de software para la solución de problemas",
+        docente: "Arcides Canales",
+        resumen: "Práctica 1 de POO, Guía 1 de Bootstrap y proyectos ASPX CODE. Entregas por GitHub y Classroom según las indicaciones del docente.",
+        aprendido: ["POR COMPLETAR", "POR COMPLETAR", "POR COMPLETAR"],
+        instrumentos: ["Guía: POR COMPLETAR", "Rúbrica: POR COMPLETAR", "Lista de cotejo: POR COMPLETAR", "Examen: POR COMPLETAR"],
+        programas: ["POR COMPLETAR"],
+        herramientas: ["POR COMPLETAR"],
+        recursos: [{ nombre: "POR COMPLETAR", enlace: "" }],
+        evidencias: [{ nombre: "POR COMPLETAR", enlace: "" }],
+        indicaciones: {
+          evaluacion: "Evaluación dialogada y entrega de Classroom.",
+          entregas: [
+            {
+              titulo: "Práctica 1 POO (30%)",
+              actividades: [
+                "Realizar la guía (Caso desarrollado 1).",
+                "Subir el proyecto comprimido en .zip.",
+                "Subir un documento con capturas de pantalla explicadas del proceso de creación del caso desarrollado 1.",
+                "Resolver las preguntas en el cuaderno y subir fotografías de la solución."
+              ]
+            },
+            {
+              titulo: "Guía 1 Bootstrap (30%)",
+              actividades: [
+                "Hacer todos los ejercicios de la guía y entregarlos vía GitHub (enviar enlace del repositorio).",
+                "Hacer la discusión de resultados de la página 29 y entregarla vía GitHub (enviar enlace del repositorio)."
+              ]
+            },
+            {
+              titulo: "ASPX (30%)",
+              actividades: [
+                "Realizar los cinco proyectos ASPX CODE indicados en la guía (temas: Label, TextBox, Button Submit, Button Command, TableRow y TableCell).",
+                "Entregar vía repositorio GitHub."
+              ]
+            },
+            {
+              titulo: "Comités y normas (10%)",
+              actividades: [
+                "Comités en el cuaderno.",
+                "Normas sobre faltas leves, graves y muy graves."
+              ]
+            }
+          ]
+        }
+      },
+      {
+        id: "administracion-bases-datos",
+        nombre: "Módulo 3.3: Administración de Bases de Datos",
+        docente: "POR COMPLETAR",
+        resumen: "POR COMPLETAR",
+        aprendido: ["POR COMPLETAR", "POR COMPLETAR", "POR COMPLETAR"],
+        instrumentos: ["Guía: POR COMPLETAR", "Rúbrica: POR COMPLETAR", "Lista de cotejo: POR COMPLETAR", "Examen: POR COMPLETAR"],
+        programas: ["POR COMPLETAR"],
+        herramientas: ["POR COMPLETAR"],
+        recursos: [{ nombre: "POR COMPLETAR", enlace: "" }],
+        evidencias: [{ nombre: "POR COMPLETAR", enlace: "" }]
+      },
+      {
+        id: "documentacion-sistemas",
+        nombre: "Módulo 3.4: Elaboración de documentación de Sistemas informáticos",
+        docente: "POR COMPLETAR",
+        resumen: "POR COMPLETAR",
+        aprendido: ["POR COMPLETAR", "POR COMPLETAR", "POR COMPLETAR"],
+        instrumentos: ["Guía: POR COMPLETAR", "Rúbrica: POR COMPLETAR", "Lista de cotejo: POR COMPLETAR", "Examen: POR COMPLETAR"],
+        programas: ["POR COMPLETAR"],
+        herramientas: ["POR COMPLETAR"],
+        recursos: [{ nombre: "POR COMPLETAR", enlace: "" }],
+        evidencias: [{ nombre: "POR COMPLETAR", enlace: "" }]
+      },
+      {
+        id: "conversacion-ingles-mantenimiento",
+        nombre: "Módulo 3.6: Conversación en inglés sobre mantenimiento de sistemas informáticos",
+        docente: "POR COMPLETAR",
+        resumen: "POR COMPLETAR",
+        aprendido: ["POR COMPLETAR", "POR COMPLETAR", "POR COMPLETAR"],
+        instrumentos: ["Guía: POR COMPLETAR", "Rúbrica: POR COMPLETAR", "Lista de cotejo: POR COMPLETAR", "Examen: POR COMPLETAR"],
+        programas: ["POR COMPLETAR"],
+        herramientas: ["POR COMPLETAR"],
+        recursos: [{ nombre: "POR COMPLETAR", enlace: "" }],
+        evidencias: [{ nombre: "POR COMPLETAR", enlace: "" }]
+      },
+      {
+        id: "proyecto-innovador-software",
+        nombre: "Módulo 3.8: Proyecto innovador de Desarrollo de Software",
+        docente: "POR COMPLETAR",
+        resumen: "POR COMPLETAR",
+        aprendido: ["POR COMPLETAR", "POR COMPLETAR", "POR COMPLETAR"],
+        instrumentos: ["Guía: POR COMPLETAR", "Rúbrica: POR COMPLETAR", "Lista de cotejo: POR COMPLETAR", "Examen: POR COMPLETAR"],
+        programas: ["POR COMPLETAR"],
+        herramientas: ["POR COMPLETAR"],
+        recursos: [{ nombre: "POR COMPLETAR", enlace: "" }],
+        evidencias: [{ nombre: "POR COMPLETAR", enlace: "" }]
+      }
+    ];
+
+    const CLAVE_PROGRESO = "hub-3dsa-progreso-v1";
+    const CLAVE_TEMA = "hub-3dsa-tema-v1";
+    const lista = document.getElementById("lista-modulos");
+    const buscador = document.getElementById("buscador");
+    const filtroDocente = document.getElementById("filtro-docente");
+    const dialogo = document.getElementById("dialogo-ficha");
+    const contenidoFicha = document.getElementById("contenido-ficha");
+    let modulosRepasados = leerProgreso();
+    let elementoQueAbrioFicha = null;
+    let ultimaCelebracion = false;
+
+    // Normaliza texto para que la búsqueda ignore mayúsculas y acentos.
+    function normalizar(texto) {
+      return String(texto ?? "")
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .toLocaleLowerCase("es");
+    }
+
+    function leerProgreso() {
+      try {
+        const guardado = JSON.parse(localStorage.getItem(CLAVE_PROGRESO) || "[]");
+        if (!Array.isArray(guardado)) return new Set();
+        const idsValidos = new Set(MODULOS.map((modulo) => modulo.id));
+        return new Set(guardado.filter((id) => idsValidos.has(id)));
+      } catch {
+        return new Set();
+      }
+    }
+
+    function guardarProgreso() {
+      try {
+        localStorage.setItem(CLAVE_PROGRESO, JSON.stringify([...modulosRepasados]));
+        return true;
+      } catch {
+        return false;
+      }
+    }
+
+    function escaparHTML(valor) {
+      return String(valor ?? "").replace(/[&<>"']/g, (caracter) => ({
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': "&quot;",
+        "'": "&#39;"
+      })[caracter]);
+    }
+
+    function urlSegura(valor) {
+      try {
+        const url = new URL(valor, window.location.href);
+        return ["http:", "https:"].includes(url.protocol) ? url.href : "";
+      } catch {
+        return "";
+      }
+    }
+
+    function inicializarFiltroDocente() {
+      const docentes = [...new Set([
+        "Javier Mineros",
+        "Arcides Canales",
+        "Otro",
+        ...MODULOS.map((modulo) => modulo.docente).filter((docente) => docente && docente !== "POR COMPLETAR")
+      ])].sort((a, b) => a.localeCompare(b, "es"));
+
+      for (const docente of docentes) {
+        const opcion = document.createElement("option");
+        opcion.value = docente;
+        opcion.textContent = docente;
+        filtroDocente.append(opcion);
+      }
+    }
+
+    function renderizarModulos() {
+      const termino = normalizar(buscador.value.trim());
+      const docenteElegido = filtroDocente.value;
+      const visibles = MODULOS.filter((modulo) => {
+        const textoBuscable = normalizar([
+          modulo.nombre,
+          modulo.resumen,
+          ...(modulo.programas || []),
+          ...(modulo.herramientas || []),
+          ...(modulo.indicaciones?.entregas || []).flatMap((entrega) => [
+            entrega.titulo,
+            ...(entrega.actividades || [])
+          ])
+        ].join(" "));
+        const coincideBusqueda = !termino || textoBuscable.includes(termino);
+        const coincideDocente = !docenteElegido || modulo.docente === docenteElegido;
+        return coincideBusqueda && coincideDocente;
+      });
+
+      document.getElementById("contador").textContent =
+        `Mostrando ${visibles.length} de ${MODULOS.length} módulos`;
+
+      if (visibles.length === 0) {
+        lista.innerHTML = '<div class="sin-resultados"><strong>No encontramos módulos con esa búsqueda.</strong><br>Prueba con otras palabras o cambia el filtro de docente.</div>';
+        return;
+      }
+
+      lista.innerHTML = visibles.map((modulo) => {
+        const repasado = modulosRepasados.has(modulo.id);
+        return `
+          <article class="tarjeta">
+            <div class="tarjeta-cabecera">
+              <span class="numero" aria-hidden="true">${String(MODULOS.indexOf(modulo) + 1).padStart(2, "0")}</span>
+              ${repasado ? '<span class="estado-repasado">Repasado ✓</span>' : ""}
+            </div>
+            ${modulo.esEjemplo ? '<span class="etiqueta" style="align-self:flex-start;margin-top:.75rem">Ejemplo · reemplazar</span>' : ""}
+            <h3>${escaparHTML(modulo.nombre)}</h3>
+            <p class="docente">Docente: ${escaparHTML(modulo.docente)}</p>
+            <p class="resumen-corto">${escaparHTML(modulo.resumen)}</p>
+            <button class="boton" type="button" data-modulo="${escaparHTML(modulo.id)}">Ver ficha <span aria-hidden="true">→</span></button>
+          </article>`;
+      }).join("");
+    }
+
+    function listaHTML(items) {
+      if (!Array.isArray(items) || items.length === 0) {
+        return "<p>POR COMPLETAR</p>";
+      }
+      return `<ul>${items.map((item) => `<li>${escaparHTML(item || "POR COMPLETAR")}</li>`).join("")}</ul>`;
+    }
+
+    function enlacesHTML(items) {
+      if (!Array.isArray(items) || items.length === 0) {
+        return "<p>POR COMPLETAR</p>";
+      }
+      return `<ul>${items.map((item) => {
+        const nombre = escaparHTML(item?.nombre || "POR COMPLETAR");
+        const url = urlSegura(item?.enlace);
+        return `<li>${url ? `<a href="${escaparHTML(url)}" target="_blank" rel="noopener noreferrer">${nombre} (abrir en otra pestaña)</a>` : nombre}</li>`;
+      }).join("")}</ul>`;
+    }
+
+    function indicacionesHTML(indicaciones) {
+      if (!indicaciones) return "";
+      const entregas = (indicaciones.entregas || []).map((entrega) => `
+        <h4>${escaparHTML(entrega.titulo)}</h4>
+        ${listaHTML(entrega.actividades)}
+      `).join("");
+      return `
+        <section class="indicaciones-docente" aria-labelledby="titulo-indicaciones">
+          <h3 id="titulo-indicaciones">Indicaciones del docente · Arcides Canales</h3>
+          <p><strong>Evaluación:</strong> ${escaparHTML(indicaciones.evaluacion)}</p>
+          ${entregas}
+        </section>`;
+    }
+
+    function abrirFicha(id, botonOrigen) {
+      const modulo = MODULOS.find((elemento) => elemento.id === id);
+      if (!modulo) return;
+
+      elementoQueAbrioFicha = botonOrigen;
+      const marcaEjemplo = modulo.esEjemplo
+        ? '<p class="nota"><strong>Ficha de ejemplo:</strong> reemplaza estas muestras por información real antes de compartir el portal.</p>'
+        : "";
+      contenidoFicha.innerHTML = `
+        <div class="ficha-cabecera">
+          <div>
+            <span class="etiqueta">${modulo.esEjemplo ? "Ejemplo · reemplazar" : `Docente: ${escaparHTML(modulo.docente)}`}</span>
+            <h2 id="ficha-titulo">${escaparHTML(modulo.nombre)}</h2>
+          </div>
+          <button class="cerrar" type="button" aria-label="Cerrar ficha">×</button>
+        </div>
+        <div class="ficha-contenido">
+          ${marcaEjemplo}
+          <h3>Resumen</h3>
+          <p>${escaparHTML(modulo.resumen)}</p>
+          <h3>Lo aprendido</h3>
+          ${listaHTML(modulo.aprendido)}
+          <h3>Instrumentos</h3>
+          ${listaHTML(modulo.instrumentos)}
+          <h3>Programas</h3>
+          ${listaHTML(modulo.programas)}
+          <h3>Herramientas</h3>
+          ${listaHTML(modulo.herramientas)}
+          <h3>Recursos</h3>
+          ${enlacesHTML(modulo.recursos)}
+          <h3>Evidencias</h3>
+          ${enlacesHTML(modulo.evidencias)}
+          ${indicacionesHTML(modulo.indicaciones)}
+          <div class="ficha-acciones">
+            <button class="boton" type="button" data-marcar="${escaparHTML(modulo.id)}">
+              ${modulosRepasados.has(modulo.id) ? "Quitar marca de repasado" : "Marcar como repasado"}
+            </button>
+          </div>
+        </div>`;
+
+      dialogo.showModal();
+      contenidoFicha.querySelector(".cerrar").focus();
+    }
+
+    function actualizarProgreso() {
+      const total = MODULOS.length;
+      const repasados = MODULOS.filter((modulo) => modulosRepasados.has(modulo.id)).length;
+      const porcentaje = total ? Math.round((repasados / total) * 100) : 0;
+      const barra = document.getElementById("barra-progreso");
+      const pista = document.getElementById("pista-progreso");
+
+      document.getElementById("resumen-progreso").textContent = `${repasados} de ${total} módulos repasados`;
+      document.getElementById("porcentaje-progreso").textContent = `${porcentaje} %`;
+      barra.style.width = `${porcentaje}%`;
+      pista.setAttribute("aria-valuenow", String(porcentaje));
+
+      const mensaje = document.getElementById("mensaje-progreso");
+      if (porcentaje === 100) {
+        mensaje.textContent = "¡Lo lograste! Repasaste todos los módulos. 🎉";
+        if (!ultimaCelebracion) {
+          ultimaCelebracion = true;
+          mensaje.setAttribute("role", "status");
+        }
+      } else {
+        ultimaCelebracion = false;
+        mensaje.textContent = "Cada ficha repasada cuenta. ¡Empecemos!";
+        mensaje.removeAttribute("role");
+      }
+    }
+
+    function aplicarTema(tema, guardar) {
+      document.documentElement.dataset.tema = tema;
+      const esOscuro = tema === "oscuro";
+      document.getElementById("icono-tema").textContent = esOscuro ? "☀" : "☾";
+      document.getElementById("boton-tema").setAttribute(
+        "aria-label",
+        esOscuro ? "Cambiar a modo claro" : "Cambiar a modo oscuro"
+      );
+      if (guardar) {
+        try {
+          localStorage.setItem(CLAVE_TEMA, tema);
+        } catch {
+          // El cambio de tema sigue funcionando aunque el navegador bloquee el almacenamiento.
+        }
+      }
+    }
+
+    function iniciarTema() {
+      let guardado = null;
+      try {
+        guardado = localStorage.getItem(CLAVE_TEMA);
+      } catch {
+        // Si el almacenamiento no está disponible, se usa la preferencia del sistema.
+      }
+      const temaSistema = window.matchMedia("(prefers-color-scheme: dark)").matches ? "oscuro" : "claro";
+      if (guardado === "claro" || guardado === "oscuro") {
+        aplicarTema(guardado, false);
+      } else if (temaSistema === "oscuro") {
+        aplicarTema("oscuro", false);
+      }
+    }
+
+    inicializarFiltroDocente();
+    iniciarTema();
+    renderizarModulos();
+    actualizarProgreso();
+
+    buscador.addEventListener("input", renderizarModulos);
+    filtroDocente.addEventListener("change", renderizarModulos);
+
+    lista.addEventListener("click", (evento) => {
+      const boton = evento.target.closest("button[data-modulo]");
+      if (boton) abrirFicha(boton.dataset.modulo, boton);
+    });
+
+    contenidoFicha.addEventListener("click", (evento) => {
+      if (evento.target.closest(".cerrar")) {
+        dialogo.close();
+        return;
+      }
+      const botonMarcar = evento.target.closest("button[data-marcar]");
+      if (!botonMarcar) return;
+
+      const id = botonMarcar.dataset.marcar;
+      if (modulosRepasados.has(id)) {
+        modulosRepasados.delete(id);
+      } else {
+        modulosRepasados.add(id);
+      }
+
+      const guardado = guardarProgreso();
+      actualizarProgreso();
+      renderizarModulos();
+      const botonActualizado = [...lista.querySelectorAll("button[data-modulo]")]
+        .find((boton) => boton.dataset.modulo === id);
+      abrirFicha(id, botonActualizado || elementoQueAbrioFicha);
+      if (!guardado) {
+        document.getElementById("mensaje-progreso").textContent =
+          "El progreso cambió en esta sesión, pero el navegador no permitió guardarlo.";
+      }
+    });
+
+    dialogo.addEventListener("click", (evento) => {
+      if (evento.target === dialogo) dialogo.close();
+    });
+
+    dialogo.addEventListener("keydown", (evento) => {
+      if (evento.key === "Escape") {
+        evento.preventDefault();
+        dialogo.close();
+      }
+    });
+
+    dialogo.addEventListener("close", () => {
+      if (elementoQueAbrioFicha?.isConnected) elementoQueAbrioFicha.focus();
+      elementoQueAbrioFicha = null;
+    });
+
+    document.getElementById("boton-tema").addEventListener("click", () => {
+      const temaActual = document.documentElement.dataset.tema ||
+        (window.matchMedia("(prefers-color-scheme: dark)").matches ? "oscuro" : "claro");
+      aplicarTema(temaActual === "oscuro" ? "claro" : "oscuro", true);
+    });
+  </script>
+</body>
+</html>
