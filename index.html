@@ -748,14 +748,89 @@
       {
         id: "componentes-dispositivos-moviles",
         nombre: "Módulo 2: Desarrollo de componentes para dispositivos móviles",
-        docente: "POR COMPLETAR",
-        resumen: "POR COMPLETAR",
+        docente: "Arcides Canales",
+        resumen: "Prácticas Xamarin.Forms con Label, Button y Entry; ejercicios individuales en .NET MAUI y proyecto colaborativo de lectoescritura.",
         aprendido: ["POR COMPLETAR", "POR COMPLETAR", "POR COMPLETAR"],
         instrumentos: ["Guía: POR COMPLETAR", "Rúbrica: POR COMPLETAR", "Lista de cotejo: POR COMPLETAR", "Examen: POR COMPLETAR"],
-        programas: ["POR COMPLETAR"],
+        programas: ["Xamarin.Forms", "Visual Studio Community 2019", ".NET MAUI", "GitHub", "WordPress"],
         herramientas: ["POR COMPLETAR"],
         recursos: [{ nombre: "POR COMPLETAR", enlace: "" }],
-        evidencias: [{ nombre: "POR COMPLETAR", enlace: "" }]
+        evidencias: [{ nombre: "POR COMPLETAR", enlace: "" }],
+        indicaciones: {
+          entregas: [
+            {
+              titulo: "Instrucciones individuales · Xamarin.Forms",
+              actividades: [
+                "Realizar el ejemplo del video 04: Xamarin.Forms Label con Visual Studio Community 2019.",
+                "Realizar el ejemplo del video 05: Xamarin.Forms Button con Visual Studio Community 2019.",
+                "Realizar el ejemplo del video 06: Xamarin.Forms Entry con Visual Studio Community 2019."
+              ]
+            },
+            {
+              titulo: "Investigación complementaria · .NET MAUI",
+              actividades: [
+                "Crear un programa que solicite cuatro números y luego invierta su orden.",
+                "Dados los números A y B, mostrar el resultado de la expresión (A + B)² / 2.",
+                "Dadas las cinco calificaciones de un alumno a lo largo del semestre, mostrar su promedio.",
+                "Obtener el cuadrado y el cubo de un número entero positivo.",
+                "Dados la altura y la base de un rectángulo, calcular su perímetro y superficie.",
+                "Crear MatchGame."
+              ]
+            },
+            {
+              titulo: "Formato de cada aplicación",
+              actividades: [
+                "Cada programa debe contener una imagen pertinente, relacionada con el software.",
+                "Cada programa debe subirse a GitHub."
+              ]
+            },
+            {
+              titulo: "Trabajo en equipo · aplicación móvil de lectoescritura",
+              actividades: [
+                "Diseñar y desarrollar en equipo una aplicación móvil funcional y atractiva, enfocada en lectoescritura. La indicación señala como fecha límite: jueves 30.",
+                "Considerar los integrantes definidos anteriormente para el equipo.",
+                "Desarrollar la aplicación en .NET MAUI.",
+                "Incluir actividades como formación de palabras, reconocimiento de sílabas o asociación de imágenes con palabras.",
+                "Presentar un diseño limpio y bien estructurado; la aplicación debe ser útil, creativa o divertida.",
+                "Ejemplos sugeridos: consejos de lectoescritura, resumen de un tema, una obra o un libro, lectoescritura para niños o un juego matemático sencillo como «Adivina el número»."
+              ]
+            },
+            {
+              titulo: "Requisitos obligatorios del proyecto en equipo",
+              actividades: [
+                "Incluir una imagen visual relacionada con el propósito de la aplicación.",
+                "Subir correctamente el código a GitHub e incluir README y licencias.",
+                "Realizar la codificación en equipo, pruebas y correcciones.",
+                "Presentar la aplicación y responder preguntas del grupo o del profesor. El docente selecciona quiénes presentan al público; los estudiantes seleccionan quiénes presentan en el festival de lectoescritura."
+              ]
+            },
+            {
+              titulo: "Criterios de evaluación del proyecto",
+              actividades: [
+                "Aplicación funcional y sin errores.",
+                "Creatividad en el problema resuelto.",
+                "Diseño visual: color, orden y claridad.",
+                "Interactividad con el usuario.",
+                "Entrega en GitHub.",
+                "Explicación clara durante la presentación."
+              ]
+            },
+            {
+              titulo: "Parte humana en equipo",
+              actividades: [
+                "Crear un cartel por equipo según el documento de caracterización entregado por el docente. Seguir las instrucciones del docente durante la clase."
+              ]
+            },
+            {
+              titulo: "Otras entregas y notas",
+              actividades: [
+                "Entregar en WordPress los capítulos 3 y 4 de forma creativa.",
+                "No se aceptan entregas tarde, excepto con constancia médica o justificación de peso.",
+                "La autoevaluación de la práctica se realizará en otra actividad, por separado, para evitar problemas de cálculos."
+              ]
+            }
+          ]
+        }
       },
       {
         id: "aplicaciones-software",
@@ -990,7 +1065,7 @@
       }).join("")}</ul>`;
     }
 
-    function indicacionesHTML(indicaciones) {
+    function indicacionesHTML(indicaciones, docente) {
       if (!indicaciones) return "";
       const entregas = (indicaciones.entregas || []).map((entrega) => `
         <h4>${escaparHTML(entrega.titulo)}</h4>
@@ -998,8 +1073,8 @@
       `).join("");
       return `
         <section class="indicaciones-docente" aria-labelledby="titulo-indicaciones">
-          <h3 id="titulo-indicaciones">Indicaciones del docente · Arcides Canales</h3>
-          <p><strong>Evaluación:</strong> ${escaparHTML(indicaciones.evaluacion)}</p>
+          <h3 id="titulo-indicaciones">Indicaciones del docente · ${escaparHTML(docente)}</h3>
+          ${indicaciones.evaluacion ? `<p><strong>Evaluación:</strong> ${escaparHTML(indicaciones.evaluacion)}</p>` : ""}
           ${entregas}
         </section>`;
     }
@@ -1036,7 +1111,7 @@
           ${enlacesHTML(modulo.recursos)}
           <h3>Evidencias</h3>
           ${enlacesHTML(modulo.evidencias)}
-          ${indicacionesHTML(modulo.indicaciones)}
+          ${indicacionesHTML(modulo.indicaciones, modulo.docente)}
           <div class="ficha-acciones">
             <button class="boton" type="button" data-marcar="${escaparHTML(modulo.id)}">
               ${modulosRepasados.has(modulo.id) ? "Quitar marca de repasado" : "Marcar como repasado"}
