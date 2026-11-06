@@ -17,7 +17,7 @@ function crearQuizPendiente(esEjemplo = false) {
 window.MODULOS = [
   {
     id: "mantenimiento-sistema",
-    nombre: "Módulo 1: Mantenimiento y aseguramiento de la operación del sistema informático",
+    nombre: "Mantenimiento y aseguramiento de la operación del sistema informático",
     docente: ["Arcides Canales", "Julio Portillo"],
     resumen: "El módulo aborda el diseño de una base de datos para un sistema, su implementación en SQL o Access, y la creación de una interfaz WebForm con operaciones CRUD y acceso mediante login. Incluye documentación del proceso y una presentación final del sistema.",
     aprendido: [
@@ -124,7 +124,7 @@ window.MODULOS = [
   },
   {
     id: "mantenimiento-microempresa-propuesta",
-    nombre: "Módulo 2: Puesta en marcha de la microempresa",
+    nombre: "Puesta en marcha de la microempresa",
     docente: ["Julio Portillo"],
     resumen: "La propuesta presenta Auralix IT Solutions, una empresa de outsourcing enfocada en diseñar, implementar, mantener, proteger y optimizar bases de datos relacionales para otras organizaciones. Plantea objetivos de transformación digital y una proyección financiera estimada para El Salvador.",
     aprendido: [
@@ -237,7 +237,7 @@ window.MODULOS = [
   },
   {
     id: "orientacion-estudiante-proceso",
-    nombre: "Módulo 3: Orientación al estudiante al proceso",
+    nombre: "Orientación al estudiante al proceso",
     docente: ["Javier Mineros"],
     resumen: "Simulación intensiva de desarrollo de software en la que equipos trabajan como una startup para resolver un problema del campus mediante una base de datos funcional en Microsoft Access. El sprint sigue la metodología de la Acción Completa en tres fases: informarse, planificar y decidir; ejecutar; y controlar y valorar. Incluye diseño MER, desarrollo y pruebas, presentación final y retrospectiva.",
     aprendido: [
@@ -363,7 +363,7 @@ window.MODULOS = [
   },
   {
     id: "componentes-dispositivos-moviles",
-    nombre: "Módulo 4: Desarrollo de componentes para dispositivos móviles",
+    nombre: "Módulo 2: Desarrollo de componentes para dispositivos móviles",
     docente: ["Arcides Canales"],
     resumen: "El módulo reúne prácticas de .NET MAUI, ejercicios individuales y grupales de programación, CRUD con SQLite, MatchGame y una tienda de prueba en PrestaShop.",
     aprendido: [
@@ -585,7 +585,7 @@ window.MODULOS = [
   },
   {
     id: "aplicaciones-software",
-    nombre: "Módulo 5: Desarrollo de aplicaciones de software para la solución de problemas",
+    nombre: "Módulo 1: Desarrollo de aplicaciones de software para la solución de problemas",
     docente: ["Arcides Canales"],
     resumen: "El módulo reúne prácticas de programación orientada a objetos, desarrollo web con ASPX y ASP Razor, bases de datos y CRUD, uso de GitHub y ejercicios de aplicaciones con .NET MAUI.",
     aprendido: [
@@ -843,7 +843,7 @@ window.MODULOS = [
   },
   {
     id: "administracion-bases-datos",
-    nombre: "Módulo 6: Administración de Bases de Datos",
+    nombre: "Módulo 3.3: Administración de Bases de Datos",
     docente: ["Javier Mineros"],
     resumen: "El módulo presenta el diseño relacional de una base de datos escolar en SQL Server, respaldos y restauración, automatización, almacenamiento en la nube, diccionario de datos, monitoreo y seguridad. También incluye ejercicios de consultas SQL con filtros, ordenamiento, agregaciones y operaciones sobre datos.",
     aprendido: [
@@ -870,9 +870,18 @@ window.MODULOS = [
       "REBUILD, REORGANIZE, LOGINS, USERS, GRANT/REVOKE y Database Mail."
     ],
     recursos: [
-      { nombre: "Presentación SQLServer_Admin_BD_Escuela.pptx (enlace o archivo por completar)", enlace: "" },
-      { nombre: "Guía práctica de SQL: consultas y selección (archivo o enlace por completar)", enlace: "" },
-      { nombre: "Material complementario de SQL Server (por completar)", enlace: "" }
+      {
+        nombre: "Backup and restore of SQL Server databases",
+        enlace: "https://learn.microsoft.com/en-us/sql/relational-databases/backup-restore"
+      },
+      {
+        nombre: "Restore and recovery overview (SQL Server)",
+        enlace: "https://learn.microsoft.com/sql/relational-databases/backup-restore/restore-and-recovery-overview-sql-server"
+      },
+      {
+        nombre: "SQL Server Agent",
+        enlace: "https://learn.microsoft.com/sql/ssms/agent"
+      }
     ],
     evidencias: [
       { nombre: "Script SQL comentado con nombre completo (archivo o enlace por completar)", enlace: "", imagen: "", alt: "POR COMPLETAR" },
@@ -987,7 +996,7 @@ window.MODULOS = [
   },
   {
     id: "documentacion-sistemas",
-    nombre: "Módulo 7: Elaboración de documentación de Sistemas informáticos",
+    nombre: "Módulo 3.4: Elaboración de documentación de Sistemas informáticos",
     docente: ["Javier Mineros"],
     resumen: "El módulo cubre las fases de análisis y diseño de sistemas, prácticas de desarrollo frontend y backend, implementación con control de versiones y documentación técnica, y las etapas de ejecución, control y evaluación de un proyecto ERP.",
     aprendido: [
@@ -1105,7 +1114,7 @@ window.MODULOS = [
   },
   {
     id: "conversacion-ingles-mantenimiento",
-    nombre: "Módulo 8: Conversación en inglés sobre mantenimiento de sistemas informáticos",
+    nombre: "Módulo 3.6: Conversación en inglés sobre mantenimiento de sistemas informáticos",
     docente: ["Javier Mineros"],
     resumen: "El bloque de las semanas 6 y 7 prepara al equipo para presentar en inglés una solución de mantenimiento como si fuera una empresa de software que atiende a un negocio cliente. La calificación corresponde al 20 % del módulo y se distribuye entre una dramatización con demostración en vivo (10 %), el expediente técnico bilingüe (5 %) y la adaptación del sistema al inglés (5 %).",
     aprendido: [
@@ -1230,7 +1239,7 @@ window.MODULOS = [
   },
   {
     id: "proyecto-innovador-software",
-    nombre: "Módulo 9: Proyecto innovador de Desarrollo de Software",
+    nombre: "Módulo 3.8: Proyecto innovador de Desarrollo de Software",
     docente: ["Javier Mineros"],
     resumen: "El proyecto propone desarrollar HUB Educativo 3DS·A, un portal web estático, adaptable e interactivo para reunir y repasar los contenidos del año lectivo 2026 del 3.º Bachillerato Técnico Vocacional en Desarrollo de Software. La propuesta utiliza HTML5 semántico, CSS3 y JavaScript puro, organiza los módulos desde data/modulos.js e incluye búsqueda, filtros, progreso persistente, quizzes y modo claro/oscuro. También plantea control de versiones con Git y GitHub Pages, documentación del uso de IA y validación de calidad, accesibilidad y experiencia móvil.",
     aprendido: [
