@@ -1280,9 +1280,18 @@ window.MODULOS = [
       "Documentación de prompts y revisión individual de la comprensión del código."
     ],
     recursos: [
-      { nombre: "Material portal_3DS-A_dia1_martes.html (archivo o enlace por completar)", enlace: "" },
-      { nombre: "Material portal_3DS-A_dia2_miercoles.html (archivo o enlace por completar)", enlace: "" },
-      { nombre: "Material portal_3DS-A_dia3_viernes.html (archivo o enlace por completar)", enlace: "" }
+      {
+        nombre: "Descripción general de Lighthouse",
+        enlace: "https://developer.chrome.com/docs/lighthouse/overview?hl=es"
+      },
+      {
+        nombre: "Window: localStorage (MDN)",
+        enlace: "https://developer.mozilla.org/es/docs/Web/API/Window/localStorage"
+      },
+      {
+        nombre: "Documentación de GitHub Pages",
+        enlace: "https://docs.github.com/es/pages"
+      }
     ],
     evidencias: [
       { nombre: "Repositorio del portal publicado en GitHub Pages (enlace por completar)", enlace: "", imagen: "", alt: "POR COMPLETAR" },
