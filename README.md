@@ -40,10 +40,9 @@ No se requiere instalar dependencias.
 
 <!-- Copia el bloque anterior para cada integrante del equipo. -->
 
-## Publicación en GitHub Pages
+## GitHub Pages
 
-<!-- Pega aquí la URL pública cuando GitHub Pages esté activado y hayas comprobado el sitio. -->
-**Enlace:** [PEGAR URL DE GITHUB PAGES]
+https://estiven-u.github.io/recuerdo/
 
 ## Registro de prompts
 
