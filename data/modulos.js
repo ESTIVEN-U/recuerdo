@@ -396,7 +396,7 @@ window.MODULOS = [
         nombre: "Video: Spec-driven development con OpenSpec",
         enlace: "https://www.youtube.com/watch?v=7wXyjt5MZw0&list=PLEpVR7CQcI9_LG-jBLRgUTDXNVPE4HEaT&index=13"
       },
-      { nombre: "POR COMPLETAR", enlace: "" }
+      { nombre: "Documentación oficial de .NET MAUI", enlace: "https://learn.microsoft.com/dotnet/maui" }
     ],
     evidencias: [
       { nombre: "POR COMPLETAR", enlace: "", imagen: "", alt: "POR COMPLETAR" }
