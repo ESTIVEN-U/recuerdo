@@ -1026,9 +1026,18 @@ window.MODULOS = [
       "Git y GitHub; sprints, transacciones atómicas y control de inventario."
     ],
     recursos: [
-      { nombre: "Material del proyecto o guía asociada (archivo/enlace por completar)", enlace: "" },
-      { nombre: "Repositorio GitHub del proyecto (enlace por completar)", enlace: "" },
-      { nombre: "Documentación técnica de referencia (enlace por completar)", enlace: "" }
+      {
+        nombre: "Fetch API (MDN)",
+        enlace: "https://developer.mozilla.org/es-ES/docs/Web/API/Fetch_API"
+      },
+      {
+        nombre: "PDO: Prepared statements and stored procedures (PHP)",
+        enlace: "https://www.php.net/manual/uk/pdo.prepared-statements.php"
+      },
+      {
+        nombre: "Pro Git (en español)",
+        enlace: "https://git-scm.com/book/es/v2"
+      }
     ],
     evidencias: [
       { nombre: "Diagramas, wireframes y diccionario de datos (archivo o captura por completar)", enlace: "", imagen: "", alt: "POR COMPLETAR" },
