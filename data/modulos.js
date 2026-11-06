@@ -1040,6 +1040,12 @@ window.MODULOS = [
       }
     ],
     evidencias: [
+      {
+        nombre: "App RAYO (actividad remedial del profesor Javier)",
+        enlace: "",
+        imagen: "img/rayo-app.png",
+        alt: "Captura de la app RAYO en un celular Android: pantalla de inicio con la pregunta «¿Cuántos toques en 10 segundos?» y el botón Empezar"
+      },
       { nombre: "Diagramas, wireframes y diccionario de datos (archivo o captura por completar)", enlace: "", imagen: "", alt: "POR COMPLETAR" },
       { nombre: "Código fuente, manuales y bitácoras del proyecto (enlace o captura por completar)", enlace: "", imagen: "", alt: "POR COMPLETAR" },
       { nombre: "Instalador y evidencia de defensa del ERP (enlace o captura por completar)", enlace: "", imagen: "", alt: "POR COMPLETAR" }
